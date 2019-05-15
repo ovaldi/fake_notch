@@ -32,3 +32,9 @@ android {
         disable 'InvalidPackage'
     }
 }
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'io.github.v7lin:manufacturer-android:0.0.2'
+}
