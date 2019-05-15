@@ -10,10 +10,10 @@ A simple notch plugin for Flutter.
 
 ## docs
 
-* [华为]()
-* [小米]()
-* [Oppo]()
-* [Vivo]()
+* 华为 [Android O](https://developer.huawei.com/consumer/cn/devservice/doc/50114) [Android P](https://developer.huawei.com/consumer/cn/devservice/doc/50115)
+* 小米 [Android O](https://dev.mi.com/console/doc/detail?pId=1293) [Android P](https://dev.mi.com/console/doc/detail?pId=1341)
+* Oppo [Android O](https://open.oppomobile.com/wiki/doc#id=10159) [Android p](https://open.oppomobile.com/wiki/doc#id=10293)
+* Vivo [Android O](https://dev.vivo.com.cn/documentCenter/doc/103) [Android P](https://dev.vivo.com.cn/documentCenter/doc/145)
 
 ## android
 
