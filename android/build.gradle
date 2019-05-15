@@ -1,4 +1,4 @@
-group 'io.github.v7lin.fake_notch'
+group 'io.github.v7lin.fakenotch'
 version '1.0-SNAPSHOT'
 
 buildscript {

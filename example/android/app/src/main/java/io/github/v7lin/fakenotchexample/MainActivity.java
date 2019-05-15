@@ -1,6 +1,7 @@
-package io.github.v7lin.fake_notch_example;
+package io.github.v7lin.fakenotchexample;
 
 import android.os.Bundle;
+
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
