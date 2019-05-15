@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:fake_notch/fake_notch.dart';
 
 void main() => runApp(MyApp());
