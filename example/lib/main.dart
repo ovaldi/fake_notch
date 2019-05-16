@@ -81,11 +81,14 @@ class _HomeState extends State<Home> {
               padding: orientation == Orientation.portrait
                   ? padding.copyWith(
                       top: math.max(
-                          padding.top, NotchFixedProvider.of(context).height))
+                          padding.top, NotchFixedProvider.of(context).height),
+                    )
                   : MediaQuery.of(context).padding.copyWith(
-                      left: math.max(padding.left, NotchFixedProvider.of(context).height),
-                      right:
-                          math.max(padding.right, NotchFixedProvider.of(context).height)),
+                        left: math.max(padding.left,
+                            NotchFixedProvider.of(context).height),
+                        right: math.max(padding.right,
+                            NotchFixedProvider.of(context).height),
+                      ),
             ),
             child: Scaffold(
               appBar: AppBar(
