@@ -59,6 +59,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  bool _enable = true;
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -69,8 +72,19 @@ class _HomeState extends State<Home> {
         body: ListView(
           children: <Widget>[
             ListTile(
-              title: const Text('是否有刘海'),
-              onTap: () async {},
+              title: Text(_enable ? '进入全屏' : '退出全屏'),
+              onTap: () {
+                if (_enable) {
+                  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
+                } else {
+                  SystemChrome.setEnabledSystemUIOverlays(
+                      SystemUiOverlay.values);
+                }
+                _enable = !_enable;
+                setState(() {
+
+                });
+              },
             ),
           ],
         ),
