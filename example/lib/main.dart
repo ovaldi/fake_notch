@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +19,7 @@ final SystemUiOverlayStyle SYSTEM_UI_OVERLAY_STYLE_CUSTOM =
 void main() {
   SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
+//    DeviceOrientation.portraitDown, // iOS 没有此功能
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
@@ -27,7 +27,12 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(SYSTEM_UI_OVERLAY_STYLE_CUSTOM);
 
   runZoned(() {
-    runApp(MyApp());
+    runApp(NotchFixedWidget(
+      splash: Container(
+        color: Colors.blue,
+      ),
+      child: MyApp(),
+    ));
   }, onError: (Object error, StackTrace stack) {
     print(error);
     print(stack);
@@ -62,45 +67,73 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   bool _enable = true;
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fake Notch Demo'),
-        ),
-        body: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text(_enable ? '进入全屏' : '退出全屏'),
-              onTap: () {
-                if (_enable) {
-                  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
-                } else {
-                  SystemChrome.setEnabledSystemUIOverlays(
-                      SystemUiOverlay.values);
-                }
-                _enable = !_enable;
-                setState(() {
-
-                });
-              },
+      child: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          MediaQueryData mediaQuery = MediaQuery.of(context);
+          EdgeInsets padding = mediaQuery.padding;
+          return MediaQuery(
+            data: mediaQuery.copyWith(
+              padding: orientation == Orientation.portrait
+                  ? padding.copyWith(
+                      top: math.max(
+                          padding.top, NotchFixedProvider.of(context).height))
+                  : MediaQuery.of(context).padding.copyWith(
+                      left: math.max(padding.left, NotchFixedProvider.of(context).height),
+                      right:
+                          math.max(padding.right, NotchFixedProvider.of(context).height)),
             ),
-            ListTile(
-              title: const Text('是否刘海屏'),
-              onTap: () async {
-                if (await Notch.hasNotch()) {
-                  _showTips('是否刘海屏', '是');
-                } else {
-                  _showTips('是否刘海屏', '否');
-                }
-              },
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text('Fake Notch Demo'),
+              ),
+              body: ListView(
+                children: <Widget>[
+                  ListTile(
+                    title: Text(_enable ? '进入全屏' : '退出全屏'),
+                    onTap: () {
+                      if (_enable) {
+                        SystemChrome.setEnabledSystemUIOverlays(
+                            <SystemUiOverlay>[]);
+                      } else {
+                        SystemChrome.setEnabledSystemUIOverlays(
+                            SystemUiOverlay.values);
+                      }
+                      _enable = !_enable;
+                      setState(() {});
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('不为什么，就是想弹个Dialog'),
+                    onTap: () {
+                      _showTips('提示', '不为什么，就是想弹个Dialog');
+                    },
+                  ),
+                ],
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                items: <BottomNavigationBarItem>[
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    title: Text('Home'),
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.contacts),
+                    title: Text('Contacts'),
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.group),
+                    title: Text('Group'),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          );
+        },
       ),
       value: SYSTEM_UI_OVERLAY_STYLE_CUSTOM,
     );
