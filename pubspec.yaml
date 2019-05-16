@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  device_info: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

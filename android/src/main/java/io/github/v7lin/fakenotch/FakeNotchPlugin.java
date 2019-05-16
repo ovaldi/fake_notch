@@ -60,12 +60,7 @@ public class FakeNotchPlugin implements MethodCallHandler {
     }
 
     private void hasNotch(MethodCall call, Result result) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            View decorView = registrar.activity().getWindow().getDecorView();
-            DisplayCutout displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
-            List<Rect> notchRects = displayCutout.getBoundingRects();
-            result.success(notchRects != null && !notchRects.isEmpty());
-        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O || Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
             Manufacturer manufacturer = Manufacturer.recognizer();
             if (manufacturer == Manufacturer.HUAWEI) {
                 result.success(HwNotchSizeUtil.hasNotch(registrar.context()));
@@ -84,25 +79,7 @@ public class FakeNotchPlugin implements MethodCallHandler {
     }
 
     private void getNotchRects(MethodCall call, Result result) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            View decorView = registrar.activity().getWindow().getDecorView();
-            DisplayCutout displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
-            List<Rect> notchRects = displayCutout.getBoundingRects();
-            if (notchRects != null && !notchRects.isEmpty()) {
-                List<Map<String, Object>> ret = new ArrayList<>();
-                for (Rect notchRect : notchRects) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("left", notchRect.left);
-                    map.put("top", notchRect.top);
-                    map.put("right", notchRect.right);
-                    map.put("bottom", notchRect.bottom);
-                    ret.add(map);
-                }
-                result.success(ret);
-            } else {
-                result.success(Collections.<String>emptyList());
-            }
-        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O || Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
             Manufacturer manufacturer = Manufacturer.recognizer();
             if (manufacturer == Manufacturer.HUAWEI) {
             } else if (manufacturer == Manufacturer.XIAOMI) {

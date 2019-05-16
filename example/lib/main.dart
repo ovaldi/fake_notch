@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:fake_notch/fake_notch.dart';
 
 // ignore: non_constant_identifier_names
 final SystemUiOverlayStyle SYSTEM_UI_OVERLAY_STYLE_CUSTOM =
@@ -84,6 +87,16 @@ class _HomeState extends State<Home> {
                 setState(() {
 
                 });
+              },
+            ),
+            ListTile(
+              title: const Text('是否刘海屏'),
+              onTap: () async {
+                if (await Notch.hasNotch()) {
+                  _showTips('是否刘海屏', '是');
+                } else {
+                  _showTips('是否刘海屏', '否');
+                }
               },
             ),
           ],
