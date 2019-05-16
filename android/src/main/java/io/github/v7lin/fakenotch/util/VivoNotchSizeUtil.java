@@ -10,7 +10,7 @@ public final class VivoNotchSizeUtil {
     private VivoNotchSizeUtil() {
     }
 
-    public static boolean hasNotchInScreen(Context context) {
+    public static boolean hasNotch(Context context) {
         boolean hasNotch = false;
         try {
             ClassLoader cl = context.getClassLoader();

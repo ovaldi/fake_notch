@@ -9,7 +9,7 @@ public final class MiNotchSizeUtil {
     private MiNotchSizeUtil() {
     }
 
-    public static boolean hasNotchInScreen() {
+    public static boolean hasNotch() {
         try {
             Class<?> c = Class.forName("android.os.SystemProperties");
             Method m = c.getDeclaredMethod("getInt", String.class, int.class);

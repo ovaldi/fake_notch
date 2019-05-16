@@ -6,7 +6,7 @@ public final class OppoNotchSizeUtil {
     private OppoNotchSizeUtil() {
     }
 
-    public static boolean hasNotchInScreen(Context context) {
+    public static boolean hasNotch(Context context) {
         return context.getPackageManager().hasSystemFeature("com.oppo.feature.screen.heteromorphism");
     }
 

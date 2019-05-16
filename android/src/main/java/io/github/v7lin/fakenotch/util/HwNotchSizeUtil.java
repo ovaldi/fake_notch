@@ -13,7 +13,7 @@ public final class HwNotchSizeUtil {
      * 是否是刘海屏手机：
      * true：是刘海屏；false：非刘海屏。
      */
-    public static boolean hasNotchInScreen(Context context) {
+    public static boolean hasNotch(Context context) {
         boolean ret = false;
         try {
             ClassLoader cl = context.getClassLoader();
