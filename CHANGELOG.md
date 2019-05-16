@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* 适配华为、小米、Oppo、Vivo等手机的特殊刘海屏。
