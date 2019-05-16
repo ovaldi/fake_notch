@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:device_info/device_info.dart';
 import 'package:fake_notch/fake_notch.dart';
 
 // ignore: non_constant_identifier_names
@@ -116,6 +118,20 @@ class _HomeState extends State<Home> {
                       _showTips('提示', 'notch fixed size: ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
                     },
                   ),
+                  ListTile(
+                    title: const Text('device info'),
+                    onTap: () async {
+                      if (Platform.isAndroid) {
+                        AndroidDeviceInfo deviceInfo = await DeviceInfoPlugin().androidInfo;
+                        _showTips('提示', 'manufacturer: ${deviceInfo.manufacturer}; model: ${deviceInfo.model}; product:${deviceInfo.product}');
+                      } else if (Platform.isIOS) {
+                        IosDeviceInfo deviceInfo = await DeviceInfoPlugin().iosInfo;
+                        _showTips('提示', 'name: ${deviceInfo.name}');
+                      } else {
+                        _showTips('提示', '${Platform.operatingSystem} - ${Platform.operatingSystemVersion}');
+                      }
+                    },
+                  )
                 ],
               ),
               bottomNavigationBar: BottomNavigationBar(

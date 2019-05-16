@@ -7,6 +7,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public final class VivoNotchSizeUtil {
+    public static final int NOTCH_IN_SCREEN_VOIO_MARK = 0x00000020;//是否有凹槽
+    public static final int ROUNDED_IN_SCREEN_VOIO_MARK = 0x00000008;//是否有圆角
+
     private VivoNotchSizeUtil() {
     }
 
@@ -15,8 +18,8 @@ public final class VivoNotchSizeUtil {
         try {
             ClassLoader cl = context.getClassLoader();
             Class FtFeature = cl.loadClass("android.util.FtFeature");
-            Method get = FtFeature.getMethod("isFeatureSupport");
-            hasNotch = (boolean) get.invoke(FtFeature, new Object[]{0x00000020});
+            Method get = FtFeature.getMethod("isFeatureSupport", int.class);
+            hasNotch = (boolean) get.invoke(FtFeature, NOTCH_IN_SCREEN_VOIO_MARK);
         } catch (NoSuchMethodException e) {
         } catch (IllegalAccessException e) {
         } catch (InvocationTargetException e) {
