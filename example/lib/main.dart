@@ -111,9 +111,9 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   ListTile(
-                    title: const Text('不为什么，就是想弹个Dialog'),
+                    title: const Text('notch fixed size'),
                     onTap: () {
-                      _showTips('提示', '不为什么，就是想弹个Dialog');
+                      _showTips('提示', 'notch fixed size: ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
                     },
                   ),
                 ],
