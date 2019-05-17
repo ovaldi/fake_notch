@@ -3,8 +3,6 @@ package io.github.v7lin.fakenotchexample;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;

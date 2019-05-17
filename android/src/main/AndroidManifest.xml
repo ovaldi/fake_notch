@@ -10,6 +10,6 @@
         <!-- 小米手机刘海屏 -->
         <meta-data
             android:name="notch.config"
-            android:value="portrait|landscape"/>
+            android:value="portrait|landscape" />
     </application>
 </manifest>

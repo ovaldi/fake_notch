@@ -73,7 +73,7 @@ public class FakeNotchPlugin implements MethodCallHandler {
             } else if (manufacturer == Manufacturer.XIAOMI) {
                 result.success(MiNotchSizeUtil.getNotchSize(registrar.context()));
             } else if (manufacturer == Manufacturer.OPPO) {
-                result.success(OppoNotchSizeUtil.getNotchSize(registrar.context()));
+                result.success(OppoNotchSizeUtil.getNotchSize());
             } else if (manufacturer == Manufacturer.VIVO) {
                 result.success(VivoNotchSizeUtil.getNotchSize(registrar.context()));
             } else {
