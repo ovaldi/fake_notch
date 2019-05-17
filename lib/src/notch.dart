@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 
 class Notch {
+  Notch._();
+
   static const MethodChannel _channel =
       MethodChannel('v7lin.github.io/fake_notch');
 
