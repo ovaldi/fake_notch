@@ -10,7 +10,6 @@ class Notch {
   static const String _METHOD_HASSPECIALNOTCH = 'hasSpecialNotch';
   static const String _METHOD_GETSPECIALNOTCHSIZE = 'getSpecialNotchSize';
 
-
   static Future<bool> hasSpecialNotch() async {
     if (Platform.isAndroid) {
       return (await _channel.invokeMethod(_METHOD_HASSPECIALNOTCH)) as bool;

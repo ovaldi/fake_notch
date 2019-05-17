@@ -115,20 +115,25 @@ class _HomeState extends State<Home> {
                   ListTile(
                     title: const Text('notch fixed size'),
                     onTap: () {
-                      _showTips('提示', 'notch fixed size: ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
+                      _showTips('提示',
+                          'notch fixed size: ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
                     },
                   ),
                   ListTile(
                     title: const Text('device info'),
                     onTap: () async {
                       if (Platform.isAndroid) {
-                        AndroidDeviceInfo deviceInfo = await DeviceInfoPlugin().androidInfo;
-                        _showTips('提示', 'manufacturer: ${deviceInfo.manufacturer}; model: ${deviceInfo.model}; product:${deviceInfo.product}');
+                        AndroidDeviceInfo deviceInfo =
+                            await DeviceInfoPlugin().androidInfo;
+                        _showTips('提示',
+                            'manufacturer: ${deviceInfo.manufacturer}; model: ${deviceInfo.model}; product:${deviceInfo.product}');
                       } else if (Platform.isIOS) {
-                        IosDeviceInfo deviceInfo = await DeviceInfoPlugin().iosInfo;
+                        IosDeviceInfo deviceInfo =
+                            await DeviceInfoPlugin().iosInfo;
                         _showTips('提示', 'name: ${deviceInfo.name}');
                       } else {
-                        _showTips('提示', '${Platform.operatingSystem} - ${Platform.operatingSystemVersion}');
+                        _showTips('提示',
+                            '${Platform.operatingSystem} - ${Platform.operatingSystemVersion}');
                       }
                     },
                   )
