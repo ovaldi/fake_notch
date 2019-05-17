@@ -19,8 +19,8 @@ A simple notch plugin for Flutter.
 
 ````
 Android O 特殊刘海屏适配
-华为 - 官网适配方案，在""上的""适配通过
-小米 - 官网适配方案，不过在"Testin"上的"小米 Play"上适配失败，没有其他机型做适配
+华为 - 官网适配方案，在华为"DevEco"上的"麦芒7"适配通过
+小米 - 官网适配方案，在"Testin"上的"小米 Play"上适配失败，没有其他机型做适配
 Oppo - 官网适配方案，在"Testin"上的"OPPO R17"适配通过
 Vivo - 官网适配方案，在"Testin"上的"vivo X21A"适配通过
 ````
