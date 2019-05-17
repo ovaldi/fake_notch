@@ -35,11 +35,17 @@ Vivo - 官网适配方案，在"Testin"上的"vivo X21A"适配通过
 * snapshot
 
 ````
+dependencies:
+  fake_notch:
+    git:
+      url: https://github.com/v7lin/fake_notch.git
 ````
 
 * release
 
 ````
+dependencies:
+  fake_notch: ^${latestTag}
 ````
 
 * example
