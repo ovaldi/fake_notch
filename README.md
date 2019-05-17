@@ -50,9 +50,7 @@ dependencies:
 
 * example
 
-````
 [示例](./example/lib/main.dart)
-````
 
 ## Getting Started
 
