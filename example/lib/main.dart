@@ -139,21 +139,24 @@ class _HomeState extends State<Home> {
                   )
                 ],
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                items: <BottomNavigationBarItem>[
-                  const BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    title: Text('Home'),
-                  ),
-                  const BottomNavigationBarItem(
-                    icon: Icon(Icons.contacts),
-                    title: Text('Contacts'),
-                  ),
-                  const BottomNavigationBarItem(
-                    icon: Icon(Icons.group),
-                    title: Text('Group'),
-                  ),
-                ],
+              bottomNavigationBar: Theme(
+                data: Theme.of(context).copyWith(primaryColor: Colors.blue),
+                child: BottomNavigationBar(
+                  items: <BottomNavigationBarItem>[
+                    const BottomNavigationBarItem(
+                      icon: Icon(Icons.home),
+                      title: Text('Home'),
+                    ),
+                    const BottomNavigationBarItem(
+                      icon: Icon(Icons.contacts),
+                      title: Text('Contacts'),
+                    ),
+                    const BottomNavigationBarItem(
+                      icon: Icon(Icons.group),
+                      title: Text('Group'),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
