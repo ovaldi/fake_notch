@@ -78,7 +78,6 @@ class _HomeState extends State<Home> {
         builder: (BuildContext context, Orientation orientation) {
           MediaQueryData mediaQuery = MediaQuery.of(context);
           EdgeInsets padding = mediaQuery.padding;
-          print('xxxkkksss: ${padding.top} - ${NotchFixedProvider.of(context).height}');
           return MediaQuery(
             data: mediaQuery.copyWith(
               padding: orientation == Orientation.portrait
