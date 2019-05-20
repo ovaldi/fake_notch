@@ -31,7 +31,7 @@ void main() {
   runZoned(() {
     runApp(NotchFixedWidget(
       splash: Container(
-        color: Colors.blue,
+        color: Colors.white,
       ),
       child: MyApp(),
     ));
@@ -78,13 +78,11 @@ class _HomeState extends State<Home> {
         builder: (BuildContext context, Orientation orientation) {
           MediaQueryData mediaQuery = MediaQuery.of(context);
           EdgeInsets padding = mediaQuery.padding;
+          print('xxxkkksss: ${padding.top} - ${NotchFixedProvider.of(context).height}');
           return MediaQuery(
             data: mediaQuery.copyWith(
               padding: orientation == Orientation.portrait
-                  ? padding.copyWith(
-                      top: math.max(
-                          padding.top, NotchFixedProvider.of(context).height),
-                    )
+                  ? padding
                   : MediaQuery.of(context).padding.copyWith(
                         left: math.max(padding.left,
                             NotchFixedProvider.of(context).height),
@@ -116,7 +114,7 @@ class _HomeState extends State<Home> {
                     title: const Text('notch fixed size'),
                     onTap: () {
                       _showTips('提示',
-                          'notch fixed size: ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
+                          'notch fixed size: ${MediaQuery.of(context).padding.top} - ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
                     },
                   ),
                   ListTile(
