@@ -1,7 +1,12 @@
 package io.github.v7lin.fakenotch;
 
+import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.DisplayCutout;
+import android.view.View;
+
+import java.util.List;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -26,6 +31,7 @@ public class FakeNotchPlugin implements MethodCallHandler {
         channel.setMethodCallHandler(new FakeNotchPlugin(registrar));
     }
 
+    private static final String METHOD_HASCONVENTIONALNOTCH = "hasConventionalNotch";
     private static final String METHOD_HASSPECIALNOTCH = "hasSpecialNotch";
     private static final String METHOD_GETSPECIALNOTCHSIZE = "getSpecialNotchSize";
 
@@ -37,12 +43,25 @@ public class FakeNotchPlugin implements MethodCallHandler {
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        if (TextUtils.equals(METHOD_HASSPECIALNOTCH, call.method)) {
+        if (TextUtils.equals(METHOD_HASCONVENTIONALNOTCH, call.method)) {
+            hasConventionalNotch(call, result);
+        } else if (TextUtils.equals(METHOD_HASSPECIALNOTCH, call.method)) {
             hasSpecialNotch(call, result);
         } else if (TextUtils.equals(METHOD_GETSPECIALNOTCHSIZE, call.method)) {
             getSpecialNotchSize(call, result);
         } else {
             result.notImplemented();
+        }
+    }
+
+    private void hasConventionalNotch(MethodCall call, Result result) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            View decorView = registrar.activity().getWindow().getDecorView();
+            DisplayCutout displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
+            List<Rect> boundingRects = displayCutout.getBoundingRects();
+            result.success(boundingRects != null);
+        } else {
+            result.success(false);
         }
     }
 

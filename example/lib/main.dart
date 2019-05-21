@@ -110,10 +110,10 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   ListTile(
-                    title: const Text('notch fixed size'),
-                    onTap: () {
+                    title: const Text('notch'),
+                    onTap: () async {
                       _showTips('提示',
-                          'notch fixed size: ${MediaQuery.of(context).padding.top} - ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
+                          'notch: ${await Notch.hasConventionalNotch()} - ${MediaQuery.of(context).padding.top}\nnotch fixed: ${await Notch.hasSpecialNotch()}- ${NotchFixedProvider.of(context).width} - ${NotchFixedProvider.of(context).height}');
                     },
                   ),
                   ListTile(
