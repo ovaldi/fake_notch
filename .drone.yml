@@ -112,7 +112,7 @@ steps:
   - name: pub-cache
     path: /opt/flutter/.pub-cache
   commands:
-  - sudo flutter packages pub publish
+  - flutter packages pub publish
 
 - name: save-cache-openssl
   image: v7lin/openssl:1.1.1b
