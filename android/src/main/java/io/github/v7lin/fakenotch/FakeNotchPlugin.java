@@ -3,7 +3,6 @@ package io.github.v7lin.fakenotch;
 import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
-import android.view.DisplayCutout;
 import android.view.View;
 
 import java.util.List;
@@ -57,8 +56,7 @@ public class FakeNotchPlugin implements MethodCallHandler {
     private void hasConventionalNotch(MethodCall call, Result result) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             View decorView = registrar.activity().getWindow().getDecorView();
-            DisplayCutout displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
-            List<Rect> boundingRects = displayCutout.getBoundingRects();
+            List<Rect> boundingRects = decorView.getRootWindowInsets().getDisplayCutout().getBoundingRects();
             result.success(boundingRects != null);
         } else {
             result.success(false);
