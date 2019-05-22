@@ -89,6 +89,7 @@ steps:
     path: /opt/flutter/.pub-cache
   commands:
   - wget -P /opt/flutter/.pub-cache https://raw.githubusercontent.com/v7lin/pub_credentials/master/credentials.json.enc
+  - ls /opt/flutter/.pub-cache
 
 - name: restore-cache-openssl
   image: v7lin/openssl:1.1.1b
@@ -103,6 +104,7 @@ steps:
   commands:
   - openssl enc -d -$ENC_METHOD -k $ENC_PASSWORD -in /opt/flutter/.pub-cache/credentials.json.enc -out /opt/flutter/.pub-cache/credentials.json
   - rm /opt/flutter/.pub-cache/credentials.json.enc
+  - ls /opt/flutter/.pub-cache
 
 - name: publish
   image: v7lin/flutter:1.5.4-hotfix.2-stable
@@ -110,7 +112,7 @@ steps:
   - name: pub-cache
     path: /opt/flutter/.pub-cache
   commands:
-  - flutter packages pub publish
+  - sudo flutter packages pub publish
 
 - name: save-cache-openssl
   image: v7lin/openssl:1.1.1b
@@ -125,6 +127,7 @@ steps:
   commands:
   - openssl enc -e -$ENC_METHOD -k $ENC_PASSWORD -in /opt/flutter/.pub-cache/credentials.json -out /opt/flutter/.pub-cache/credentials.json.enc
   - rm /opt/flutter/.pub-cache/credentials.json
+  - ls /opt/flutter/.pub-cache
 
 - name: save-cache
   image: docker:git
@@ -133,8 +136,10 @@ steps:
     path: /opt/flutter/.pub-cache
   commands:
   - git clone https://github.com/v7lin/pub_credentials.git /opt/flutter/.pub-cache/pub_credentials
+  - ls /opt/flutter/.pub-cache/pub_credentials
   - mv /opt/flutter/.pub-cache/credentials.json.enc /opt/flutter/.pub-cache/pub_credentials/credentials.json.enc
   - git commit -am "update credentials by ci/cd tools"
+  - git push
 
 volumes:
 - name: pub-cache
