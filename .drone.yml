@@ -49,6 +49,8 @@ steps:
   volumes:
   - name: pub-cache
     path: /opt/flutter/.pub-cache
+  - name: gradle
+    path: /root/.gradle
   commands:
   - cd example/
   - flutter build apk
@@ -61,6 +63,17 @@ steps:
 #    files:
 #    - ./coverage/lcov.info
 
+volumes:
+- name: pub-cache
+  temp: {}
+- name: gradle
+  temp: {}
+
+---
+kind: pipeline
+name: publish
+
+steps:
 - name: publish-check
   image: v7lin/flutter:1.5.4-hotfix.2-stable
   volumes:
@@ -68,10 +81,70 @@ steps:
     path: /opt/flutter/.pub-cache
   commands:
   - flutter packages pub publish --dry-run
-  when:
-    event:
-    - tag
+
+- name: restore-cache
+  image: alpine:3.9.3
+  volumes:
+  - name: pub-cache
+    path: /opt/flutter/.pub-cache
+  commands:
+  - wget -P /opt/flutter/.pub-cache https://raw.githubusercontent.com/v7lin/pub_credentials/master/credentials.json.enc
+
+- name: restore-cache-openssl
+  image: v7lin/openssl:1.1.1b
+  volumes:
+  - name: pub-cache
+    path: /opt/flutter/.pub-cache
+  environment:
+    ENC_METHOD:
+      from_secret: ENC_METHOD
+    ENC_PASSWORD:
+      from_secret: ENC_PASSWORD
+  commands:
+  - openssl enc -d -$ENC_METHOD -k $ENC_PASSWORD -in /opt/flutter/.pub-cache/credentials.json.enc -out /opt/flutter/.pub-cache/credentials.json
+  - rm /opt/flutter/.pub-cache/credentials.json.enc
+
+- name: publish
+  image: v7lin/flutter:1.5.4-hotfix.2-stable
+  volumes:
+  - name: pub-cache
+    path: /opt/flutter/.pub-cache
+  commands:
+  - flutter packages pub publish
+
+- name: save-cache-openssl
+  image: v7lin/openssl:1.1.1b
+  volumes:
+  - name: pub-cache
+    path: /opt/flutter/.pub-cache
+  environment:
+    ENC_METHOD:
+      from_secret: ENC_METHOD
+    ENC_PASSWORD:
+      from_secret: ENC_PASSWORD
+  commands:
+  - openssl enc -e -$ENC_METHOD -k $ENC_PASSWORD -in /opt/flutter/.pub-cache/credentials.json -out /opt/flutter/.pub-cache/credentials.json.enc
+  - rm /opt/flutter/.pub-cache/credentials.json
+
+- name: save-cache
+  image: docker:git
+  volumes:
+  - name: pub-cache
+    path: /opt/flutter/.pub-cache
+  commands:
+  - git clone https://github.com/v7lin/pub_credentials.git /opt/flutter/.pub-cache/pub_credentials
+  - mv /opt/flutter/.pub-cache/credentials.json.enc /opt/flutter/.pub-cache/pub_credentials/credentials.json.enc
+  - git commit -am "update credentials by ci/cd tools"
 
 volumes:
 - name: pub-cache
   temp: {}
+
+trigger:
+  status:
+  - success
+  event:
+  - tag
+
+depends_on:
+- default
