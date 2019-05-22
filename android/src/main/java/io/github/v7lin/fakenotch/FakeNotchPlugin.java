@@ -1,17 +1,14 @@
 package io.github.v7lin.fakenotch;
 
-import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
-import android.view.View;
-
-import java.util.List;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.github.v7lin.fakenotch.util.AndroidPNotchUtil;
 import io.github.v7lin.fakenotch.util.HwNotchSizeUtil;
 import io.github.v7lin.fakenotch.util.MiNotchSizeUtil;
 import io.github.v7lin.fakenotch.util.OppoNotchSizeUtil;
@@ -55,9 +52,7 @@ public class FakeNotchPlugin implements MethodCallHandler {
 
     private void hasConventionalNotch(MethodCall call, Result result) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            View decorView = registrar.activity().getWindow().getDecorView();
-            List<Rect> boundingRects = decorView.getRootWindowInsets().getDisplayCutout().getBoundingRects();
-            result.success(boundingRects != null);
+            result.success(AndroidPNotchUtil.hasNotch(registrar.activity().getWindow()));
         } else {
             result.success(false);
         }

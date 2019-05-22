@@ -7,11 +7,11 @@ import android.os.Build;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@TargetApi(Build.VERSION_CODES.O)
 public final class MiNotchSizeUtil {
     private MiNotchSizeUtil() {
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     public static boolean hasNotch() {
         try {
             Class<?> c = Class.forName("android.os.SystemProperties");
@@ -28,7 +28,6 @@ public final class MiNotchSizeUtil {
         return false;
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     public static int[] getNotchSize(Context context) {
         int[] ret = new int[]{0, 0};
         int widthResId = context.getResources().getIdentifier("notch_width", "dimen", "android");

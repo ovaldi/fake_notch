@@ -6,6 +6,7 @@ import android.os.Build;
 
 import java.lang.reflect.Method;
 
+@TargetApi(Build.VERSION_CODES.O)
 public final class HwNotchSizeUtil {
 
     private HwNotchSizeUtil() {
@@ -15,7 +16,6 @@ public final class HwNotchSizeUtil {
      * 是否是刘海屏手机：
      * true：是刘海屏；false：非刘海屏。
      */
-    @TargetApi(Build.VERSION_CODES.O)
     public static boolean hasNotch(Context context) {
         boolean ret = false;
         try {
@@ -34,7 +34,6 @@ public final class HwNotchSizeUtil {
      * 获取刘海尺寸：width、height
      * int[0]值为刘海宽度 int[1]值为刘海高度。
      */
-    @TargetApi(Build.VERSION_CODES.O)
     public static int[] getNotchSize(Context context) {
         int[] ret = new int[]{0, 0};
         try {
